@@ -14,14 +14,14 @@ namespace mantis_tests
         public void Register(AccountData account)
         {
             OpenMainPage();
-            OpenRegistrationForm();
+            //OpenRegistrationForm();
             FillRegistrationForm(account);
             SubmitRegistration();
         }
 
         public void OpenMainPage()
         {
-            manager.Driver.Url = "http://localhost/mantisbt-2.27.1/manage_user_page.php";
+            manager.Driver.Url = "http://localhost/mantisbt-2.27.1/signup_page.php";
         }
 
         public void OpenRegistrationForm()
@@ -37,7 +37,7 @@ namespace mantis_tests
 
         public void SubmitRegistration()
         {
-            driver.FindElement(By.CssSelector("input.button")).Click();
+            driver.FindElement(By.CssSelector("input.width-40.pull-right.btn.btn-success.btn-inverse.bigger-110")).Click();
         }
     }
 }
