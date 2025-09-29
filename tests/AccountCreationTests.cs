@@ -12,7 +12,7 @@ namespace mantis_tests
         [OneTimeSetUp]
         public void setUpConfig()
         {
-            app.Ftp.BackupFile("/config_defaults_inc.php"); // возможно не так. см. Лекция 9.1
+            app.Ftp.BackupFile("/config_defaults_inc.php");
             using (Stream localFile = File.Open("config_defaults_inc.php", FileMode.Open))
             {
                 app.Ftp.Upload("/config_defaults_inc.php", localFile);
@@ -24,9 +24,9 @@ namespace mantis_tests
         {
             AccountData account = new AccountData()
             {
-                Name = "testuser1",
-                Password = "password",
-                Email = "testuser1@localhost.localdomain"
+                Name = "mantis",
+                Password = "mantis",
+                Email = "mantis@localhost.localdomain"
             };
 
             app.Registration.Register(account);
