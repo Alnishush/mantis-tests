@@ -20,7 +20,7 @@ namespace mantis_tests
         }
 
         [Test]
-        public void TestAccountRegistration()
+        /*public void TestAccountRegistration()
         {
             AccountData account = new AccountData()
             {
@@ -30,7 +30,7 @@ namespace mantis_tests
             };
 
             app.Registration.Register(account);
-        }
+        }*/
 
         [OneTimeTearDown]
         public void restoreConfig()

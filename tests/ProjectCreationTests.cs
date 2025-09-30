@@ -3,37 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace mantis_tests
 {
     [TestFixture]
-    public class ProjectCreationTests : TestBase
+    public class ProjectCreationTests : AuthTestBase // было  : TestBase
     {
         [Test]
-        /*public void Login()
-        {
-            AccountData account = new AccountData()
-            {
-                Name = "administrator",
-                Password = "password"
-            };
-
-            app.Auth.Login(account);
-        }*/
-
         public void TestProjectCreation()
         {
-            AccountData account = new AccountData()
-            {
-                Name = "administrator",
-                Password = "password"
-            };
-            app.Auth.Login(account);
-
-            ProjectData newProject = new ProjectData()
-            {
-                Name = "newProject2"
-            };
+            ProjectData newProject = new ProjectData("newProject");
+            
             app.Project.Create(newProject);
         }
     }

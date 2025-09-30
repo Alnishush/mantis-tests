@@ -10,9 +10,9 @@ namespace mantis_tests
     {
         public string Name { get; set; }
 
-        /*public ProjectData(string name)
+        public ProjectData(string name)
         {
             Name = name;
-        }*/
+        }
     }
 }
