@@ -21,24 +21,40 @@ namespace mantis_tests
             SubmitAddProject();
         }
 
-        public void OpenProjectsTab()
+            public void OpenProjectsTab()
+            {
+                driver.Url = "http://localhost/mantisbt-2.27.1/manage_proj_page.php";
+            }
+
+            public void SubmitCreateNewProject()
+            {
+                driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+            }
+
+            public void FillProjectForm(ProjectData project)
+            {
+                Type(By.Name("name"), project.Name);
+            }
+
+            public void SubmitAddProject()
+            {
+                driver.FindElement(By.XPath("//div[3]/input")).Click();
+            }
+
+        public bool IsProjectInTable(string newProject)
         {
-            driver.Url = "http://localhost/mantisbt-2.27.1/manage_proj_page.php";
+            try
+            {
+                // Ищем проект в таблице по имени
+                var projectRow = driver.FindElement(
+                    By.XPath($"//table//tr[td[text()='{newProject}']]"));
+                return projectRow.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
 
-        public void SubmitCreateNewProject()
-        {
-            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
-        }
-
-        public void FillProjectForm(ProjectData project)
-        {
-            Type(By.Name("name"), project.Name);
-        }
-
-        public void SubmitAddProject()
-        {
-            driver.FindElement(By.XPath("//div[3]/input")).Click();
-        }
     }
 }
