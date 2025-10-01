@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace mantis_tests
 {
@@ -33,7 +34,7 @@ namespace mantis_tests
 
             public void FillProjectForm(ProjectData project)
             {
-                Type(By.Name("name"), project.Name);
+                Type(By.Name("name"), project.ProjectName);
             }
 
             public void SubmitAddProject()
@@ -41,20 +42,25 @@ namespace mantis_tests
                 driver.FindElement(By.XPath("//div[3]/input")).Click();
             }
 
-        public bool IsProjectInTable(string newProject)
+        public List<ProjectData> GetProjectList()
         {
-            try
-            {
-                // Ищем проект в таблице по имени
-                var projectRow = driver.FindElement(
-                    By.XPath($"//table//tr[td[text()='{newProject}']]"));
-                return projectRow.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
+            List<ProjectData> projects = new List<ProjectData>();
+            OpenProjectsTab();
 
+            // Находим все строки проектов
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tbody.tr")); // тут может быть неправильно
+
+            foreach (IWebElement element in elements)
+            {
+                // Находим все колонки в строке
+                IList<IWebElement> column = element.FindElements(By.TagName("td")); //тут может быть проблема в поиске названия, т.к. оно находится между тегами <a>
+
+                // Извлекаем название проекта
+                string projectName = column[0].Text;
+
+                projects.Add(new ProjectData(projectName));
+            }
+            return projects;
+        }
     }
 }
