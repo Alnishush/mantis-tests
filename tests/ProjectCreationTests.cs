@@ -10,7 +10,7 @@ using System.Threading;
 namespace mantis_tests
 {
     [TestFixture]
-    public class ProjectCreationTests : AuthTestBase // было  : TestBase
+    public class ProjectCreationTests : AuthTestBase
     {
         [Test]
         public void TestProjectCreation()
@@ -25,11 +25,6 @@ namespace mantis_tests
             oldProjects.Sort();
             newProjects.Sort();
             ClassicAssert.AreEqual(oldProjects, newProjects);
-
-            // Проверяем, что проект появился в таблице
-            //ClassicAssert.IsTrue(app.Project.IsProjectInTable(newProject.Name),
-            //    $"Проект '{newProject.Name}' должен отображаться в таблице");
         }
-
     }
 }

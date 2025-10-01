@@ -16,9 +16,11 @@ namespace mantis_tests
         public void Create(ProjectData newProject)
         {
             OpenProjectsTab();
+            //Thread.Sleep(2000);
             SubmitCreateNewProject();
             //Thread.Sleep(2000);
             FillProjectForm(newProject);
+            //Thread.Sleep(2000);
             SubmitAddProject();
         }
 
@@ -47,20 +49,41 @@ namespace mantis_tests
             List<ProjectData> projects = new List<ProjectData>();
             OpenProjectsTab();
 
-            // Находим все строки проектов
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tbody.tr")); // тут может быть неправильно
+            // Находим ВСЕ ссылки проектов напрямую
+            ICollection<IWebElement> projectLinks = driver.FindElements(
+                By.CssSelector("table.table-bordered tbody tr td:first-child a")
+            );
 
-            foreach (IWebElement element in elements)
+            foreach (IWebElement link in projectLinks)
             {
-                // Находим все колонки в строке
-                IList<IWebElement> column = element.FindElements(By.TagName("td")); //тут может быть проблема в поиске названия, т.к. оно находится между тегами <a>
-
-                // Извлекаем название проекта
-                string projectName = column[0].Text;
-
+                string projectName = link.Text.Trim();
                 projects.Add(new ProjectData(projectName));
             }
+
             return projects;
         }
+
+        public void Remove(ProjectData projectToRemove)
+        {
+            OpenProjectsTab();
+            SelectFirstProject();
+            SubmitDeleteProjectButton();
+            SubmitDeleteProjectButton2();
+        }
+
+            public void SelectFirstProject()
+            {
+                driver.FindElement(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/div[2]/div/div[2]/table/tbody/tr/td/a")).Click();
+            }
+
+            public void SubmitDeleteProjectButton()
+            {
+                driver.FindElement(By.XPath("//form[@id='manage-proj-update-form']/div/div[3]/button[2]")).Click();
+            }
+
+            public void SubmitDeleteProjectButton2()
+            {
+                driver.FindElement(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/form/input[10]")).Click();
+            }
     }
 }
