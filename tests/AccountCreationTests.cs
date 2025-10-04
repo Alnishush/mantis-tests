@@ -20,7 +20,7 @@ namespace mantis_tests
         }
 
         [Test]
-        /*public void TestAccountRegistration()
+        public void TestAccountRegistration()
         {
             AccountData account = new AccountData()
             {
@@ -29,8 +29,15 @@ namespace mantis_tests
                 Email = "mantis@localhost.localdomain"
             };
 
+            List<AccountData> accounts = app.Admin.GetAllAccounts(); //10
+            AccountData existingAccount = accounts.Find(x => x.Name == account.Name); //10
+            if (existingAccount != null) //10
+            {
+                app.Admin.DeleteAccount(existingAccount); //10
+            }
+
             app.Registration.Register(account);
-        }*/
+        }
 
         [OneTimeTearDown]
         public void restoreConfig()

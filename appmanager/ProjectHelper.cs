@@ -31,8 +31,8 @@ namespace mantis_tests
 
             public void SubmitCreateNewProject()
             {
-                driver.FindElement(By.XPath("//button[@type='submit']")).Click();
-            }
+            driver.FindElement(By.CssSelector("form[action='manage_proj_create_page.php'] button[type='submit']")).Click();
+        }
 
             public void FillProjectForm(ProjectData project)
             {
@@ -41,7 +41,7 @@ namespace mantis_tests
 
             public void SubmitAddProject()
             {
-                driver.FindElement(By.XPath("//div[3]/input")).Click();
+                driver.FindElement(By.CssSelector("input[value='Add Project']")).Click();
             }
 
         public List<ProjectData> GetProjectList()
@@ -78,12 +78,12 @@ namespace mantis_tests
 
             public void SubmitDeleteProjectButton()
             {
-                driver.FindElement(By.XPath("//form[@id='manage-proj-update-form']/div/div[3]/button[2]")).Click();
+                driver.FindElement(By.CssSelector("button[formaction='manage_proj_delete.php']")).Click();
             }
 
             public void SubmitDeleteProjectButton2()
             {
-                driver.FindElement(By.XPath("//div[@id='main-container']/div[2]/div[2]/div/div/div[2]/form/input[10]")).Click();
+                driver.FindElement(By.CssSelector("input[value='Delete Project']")).Click();
             }
     }
 }
