@@ -15,24 +15,30 @@ namespace mantis_tests
         [Test]
         public void TestProjectRemoval()
         {
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "password"
+            };
+
             // Подготовка: убедимся, что есть хотя бы один проект для удаления
             ProjectData projectToRemove = new ProjectData("Test Project for Removal");
 
             // Получаем текущий список проектов
-            List<ProjectData> oldProjects = app.Project.GetProjectList();
+            List<ProjectData> oldProjects = app.Project.GetProjectList(account);
 
             // Если проектов нет, создаем один для удаления
             if (oldProjects.Count == 0)
             {
                 app.Project.Create(projectToRemove);
-                oldProjects = app.Project.GetProjectList();
+                oldProjects = app.Project.GetProjectList(account);
             }
 
             // Действие: удаляем проект
             app.Project.Remove(projectToRemove);
 
             // Проверка: получаем новый список проектов
-            List<ProjectData> newProjects = app.Project.GetProjectList();
+            List<ProjectData> newProjects = app.Project.GetProjectList(account);
 
             // Убеждаемся, что количество проектов уменьшилось на 1
             Assert.That(newProjects.Count, Is.EqualTo(oldProjects.Count - 1));

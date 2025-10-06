@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿//10
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace mantis_tests
 
         private IWebDriver OpenAppAndLogin()
         {
-            IWebDriver driver = new SimpleBrowserDriver();
+            //IWebDriver driver = new SimpleBrowserDriver();
             driver.Url = baseURL + "/login_page.php";
             driver.FindElement(By.Name("username")).SendKeys("administrator");
             driver.FindElement(By.Name("password")).SendKeys("password");

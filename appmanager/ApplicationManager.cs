@@ -30,6 +30,7 @@ namespace mantis_tests
             Auth = new LoginHelper(this);
             project = new ProjectHelper(this);
             Admin = new AdminHelper(this, baseURL); //10
+            API = new APIHelper(this); //10
         }
 
         ~ApplicationManager()
@@ -66,6 +67,6 @@ namespace mantis_tests
         public LoginHelper Auth { get; set; }
         public ProjectHelper Project { get { return project; } }
         public AdminHelper Admin { get; set; } //10
-
+        public APIHelper API { get; set; } //10
     }
 }

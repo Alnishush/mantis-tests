@@ -44,7 +44,7 @@ namespace mantis_tests
                 driver.FindElement(By.CssSelector("input[value='Add Project']")).Click();
             }
 
-        public List<ProjectData> GetProjectList()
+        /*public List<ProjectData> GetProjectList()
         {
             List<ProjectData> projects = new List<ProjectData>();
             OpenProjectsTab();
@@ -60,6 +60,32 @@ namespace mantis_tests
                 projects.Add(new ProjectData(projectName));
             }
 
+            return projects;
+        }*/
+
+        public List<ProjectData> GetProjectList(AccountData account)
+        {
+            List<ProjectData> projects = new List<ProjectData>();
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            try
+            {
+                // Получение проектов через веб-сервис
+                Mantis.ProjectData[] projectArray = client.mc_projects_get_user_accessible(account.Name, account.Password);
+
+                // Преобразование массива в список
+                foreach (Mantis.ProjectData project in projectArray)
+                {
+                    projects.Add(new ProjectData()
+                    {
+                        ProjectName = project.name
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при получении проектов: " + ex.Message);
+                throw;
+            }
             return projects;
         }
 
