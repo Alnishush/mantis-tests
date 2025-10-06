@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace mantis_tests
 {
@@ -30,7 +31,15 @@ namespace mantis_tests
             // Если проектов нет, создаем один для удаления
             if (oldProjects.Count == 0)
             {
-                app.Project.Create(projectToRemove);
+                /*app.Project.Create(projectToRemove);
+                oldProjects = app.Project.GetProjectList(account);*/
+
+                // Создаем проект через MantisConnect веб-сервис (mc_project_add)
+                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+                Mantis.ProjectData projectData = new Mantis.ProjectData();
+                projectData.name = "projectToRemove";
+
+                client.mc_project_add("administrator", "password", projectData);
                 oldProjects = app.Project.GetProjectList(account);
             }
 
